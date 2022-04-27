@@ -1,0 +1,23 @@
+GET http://localhost:8000/api/srt
+
+
+###
+POST http://localhost:8000/api/srt
+Content-Type: application/json
+
+{
+    "srt": "test",
+    "link": "http://localhost:8000/api/srt"
+}
+
+###
+PATCH http://localhost:8000/api/srt/2
+Content-Type: application/json
+
+{
+    "srt": "hehehe",
+    "link": "http://localhost:8000/api/hehe"
+}
+
+###
+DELETE http://localhost:8000/api/srt/2
