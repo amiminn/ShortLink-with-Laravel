@@ -8,24 +8,40 @@
     <title>HomePage</title>
     <link rel="stylesheet" href="{{asset('mdb/css/mdb.min.css')}}">
     <link rel="stylesheet" href="{{asset('animate.css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
 </head>
 
 <body style="background-color: #ddd">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
     <div class="container">
-        <div class="card animate__animated animate__bounce">
-            <div class="card-body">
-                <h1>Hello</h1>
-                <button class="btn btn-primary">goo</button>
-                <form class="mt-2">
-                    <div class="form-outline">
-                        <input type="text" id="form12" class="form-control" />
-                        <label class="form-label" for="form12">Example label</label>
-                    </div>
-                </form>
-            </div>
+      <!-- Navbar brand -->
+      <a class="navbar-brand me-2">
+        <img
+          src="{{ asset('img/brand.png') }}"
+          width="29"
+        />
+      </a>  <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+        </ul>   <!-- Left links -->
+        <div class="d-flex align-items-center">
+          <button
+            class="btn btn-dark px-3"
+            role="button"
+            ><i class="fab fa-github"></i
+          ></button>
         </div>
-    </div>
-
+    </div>    <!-- Container wrapper -->
+  </nav>  <!-- Navbar -->
+  <div class="container mt-1">
+    <div class="card">
+      <div class="card-body">
+        <h1>Hello</h1>
+      </div>
+    </div>  
+  </div>
     <script src="{{asset('mdb/js/mdb.min.js')}}"></script>
     <script src="{{asset('jquery/jquery.min.js')}}"></script>
     <script>
