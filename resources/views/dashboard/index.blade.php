@@ -29,25 +29,47 @@
         <div class="d-flex align-items-center">
           <button
             class="btn btn-dark px-3"
-            role="button"
+            id="login"
             ><i class="fab fa-github"></i
           ></button>
         </div>
     </div>    <!-- Container wrapper -->
   </nav>  <!-- Navbar -->
+
+
   <div class="container mt-1">
-    <div class="card">
+    {{-- login --}}
+    <div class="card d-none mb-1" id="formlogin">
       <div class="card-body">
-        <h1>Hello</h1>
+        <form>
+          <div class="form-outline mb-3">
+            <input type="text" id="uname" class="form-control" autocomplete="off" />
+            <label class="form-label" for="uname">Username</label>
+          </div>
+          <button class="btn btn-primary btn-block btn-in">sign in</button>
+        </form>
       </div>
     </div>  
-  </div>
+    
+    <div class="card mb-1">
+      <div class="card-body">
+        <h1>content</h1>
+      </div>
+    </div>
+    
+    
+  </div>  
     <script src="{{asset('mdb/js/mdb.min.js')}}"></script>
     <script src="{{asset('jquery/jquery.min.js')}}"></script>
     <script>
         $(document).ready(()=>{
-            $('.btn').click(()=>{
-                alert('ok')
+            $('#login').click(()=>{
+                $('#formlogin').toggleClass('d-none')
+                .addClass('animate__animated animate__fadeInUp')
+
+                $('.btn-in').click(()=>{
+                  $('.btn-in').removeClass('btn-primary').addClass('btn-info').html('load..')
+                })
             })
         })
     </script>
