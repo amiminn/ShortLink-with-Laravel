@@ -53,7 +53,31 @@
     
     <div class="card mb-1">
       <div class="card-body">
-        <h1>content</h1>
+        <form class="exe mb-3">
+          <div class="form-outline mb-3">
+            <input type="text" id="yourLink" class="form-control" autocomplete="off" />
+            <label class="form-label" for="yourLink">Your link is here</label>
+          </div>
+         <div class="mb-3">
+          <label class="visually-hidden" for="targetLink">Short Link</label>
+          <div class="input-group ">
+            <div class="input-group-text">{{ env('APP_URL') }}/</div>
+            <input type="text" class="form-control" id="targetLink" autocomplete="off" placeholder="Short Link" />
+          </div>
+         </div>
+          <button id="shorter" class="btn btn-primary btn-block btn-in">Shorter</button>
+        </form>
+
+        <hr>
+        {{-- callback --}}
+        <div class="card">
+          <div class="card-body">
+            response : <span class="response">-</span><br>
+            Short link : <span class="shortLink">-</span><br>
+            Target link : <span class="targetLink">-</span>
+          </div>
+        </div>
+
       </div>
     </div>
     
@@ -70,6 +94,23 @@
                 $('.btn-in').click(()=>{
                   $('.btn-in').removeClass('btn-primary').addClass('btn-info').html('load..')
                 })
+            })
+
+            $('.exe').submit((event)=>{
+              event.preventDefault();
+              const vFrom = $('#yourLink').val();
+              const vTo = $('#targetLink').val();
+              const url = 'http://localhost:8000/api/srt';
+              $.post(url, {
+                srt: vTo,
+                link: vFrom
+              }, (data, status)=>{
+                $('.response').html(status)
+                $('.shortLink').html('{{ env('APP_URL') }}/' + data.data.srt)
+                $('.targetLink').html(data.data.link)
+              $('#yourLink').val('');
+              $('#targetLink').val('');
+              })
             })
         })
     </script>

@@ -10,6 +10,10 @@ class MainController extends Controller
         return view('dashboard.index');
     }
 
+    public function galery(){
+        return 'galeryKu';
+    }
+
     public function getLink($any){
         $getData = DB::table('srt_links')->where('srt', $any)->first();
         if(!$getData == null){
