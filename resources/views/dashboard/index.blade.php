@@ -3,19 +3,27 @@
     
   <div class="container mt-1">  
     
-        <form class="exe mb-3">
-          <div class="form-outline mb-3">
-            <input type="text" id="yourLink" class="form-control" autocomplete="off" />
-            <label class="form-label" for="yourLink">Your link is here</label>
+        <form class="exe mt-4 mb-3">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form md-outline">
+                <input type="text" id="yourLink" class="form-control">
+                <label for="yourLink">from</label>
+              </div>
+            </div>
+            <div class="col-md-6 ">
+                <label class="sr-only" for="targetLink">to</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">{{ env('APP_URL') }}</div>
+                  </div>
+                  <input type="text" class="form-control py-0" id="targetLink" placeholder="to">
+                </div>
+            </div>
+            <div class="col text-center">
+              <button id="shorter" class="btn btn-primary btn-in">GENERATE</button>
+            </div>
           </div>
-         <div class="mb-3">
-          <label class="visually-hidden" for="targetLink">Short Link</label>
-          <div class="input-group ">
-            <div class="input-group-text">{{ env('APP_URL') }}/e-</div>
-            <input type="text" class="form-control" id="targetLink" autocomplete="off" placeholder="Short Link" />
-          </div>
-         </div>
-          <button id="shorter" class="btn btn-primary btn-block btn-in">Shorter</button>
         </form>
 
         <div class="d-none"id="responnya">
