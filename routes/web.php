@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BioskopController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\CookieController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,8 +18,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index']);
-Route::get('/tes', function(){
-    return env('APP_URL');
+
+Route::prefix('/cookie')->group(function () {
+    Route::get('/set', [CookieController::class, 'setC']);
+    Route::get('/get', [CookieController::class, 'getC']);
+    Route::get('/remove', [CookieController::class, 'remC']);
 });
 
-Route::get('/{any}', [MainController::class, 'getLink']);
+Route::prefix('/bioskop')->group(function () {
+    Route::get('/beli', [BioskopController::class, 'beli']);
+    Route::get('/masuk', [BioskopController::class, 'masuk']);
+    Route::get('/aula', [BioskopController::class, 'aula']);
+    Route::get('/diluar', [BioskopController::class, 'diluar']);
+});
+
+Route::get('/e-{any}', [MainController::class, 'getLink']);

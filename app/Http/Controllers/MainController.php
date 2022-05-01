@@ -6,19 +6,22 @@ use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('dashboard.index');
     }
 
-    public function galery(){
+    public function galery()
+    {
         return 'galeryKu';
     }
 
-    public function getLink($any){
+    public function getLink($any)
+    {
         $getData = DB::table('srt_links')->where('srt', $any)->first();
-        if(!$getData == null){
+        if (!$getData == null) {
             return redirect()->to($getData->link);
-        }else{
+        } else {
             return view('404');
         }
     }
