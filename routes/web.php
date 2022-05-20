@@ -3,6 +3,7 @@
 use App\Http\Controllers\BioskopController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\CookieController;
+use App\Http\Controllers\paymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class, 'index']);
+// Route::get('/', [MainController::class, 'index']);
+Route::view('/', 'theme');
 Route::view('/theme', 'theme');
+Route::view('/cv', 'cv');
+
+// payment
+Route::get('/pay', [paymentController::class, 'index']);
+
 
 Route::prefix('/cookie')->group(function () {
     Route::get('/set', [CookieController::class, 'setC']);
