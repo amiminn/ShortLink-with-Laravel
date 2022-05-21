@@ -1,113 +1,111 @@
-@extends('layout.main')
-@section('content')
-    
-  <div class="container mt-1">  
-    
-        <form class="exe mt-4 mb-3">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="md-form md-outline">
-                <input type="text" id="yourLink" class="form-control">
-                <label for="yourLink">from</label>
-              </div>
-            </div>
-            <div class="col-md-6 ">
-                <label class="sr-only" for="targetLink">to</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">{{ env('APP_URL') }}</div>
+@extends('layout.main') @section('content')
+<div class="container-fluid px-5 py-3">
+  <div class="row">
+      <div class="col-md-7 my-2 text-center">
+          <div class="card-up">
+              <img class="card-img" style="max-width: 380px; max-height: 380px; border-radius: 50%" src="{{ asset('img/bocil.jpg') }} " alt="Image with a photo of clouds. " />
+          </div>
+          <h2 class="text-white my-2">
+              <i class="fas fa-link"></i> a Simple Custom Short Link
+          </h2>
+      </div>
+
+      <div class="col-md-5 my-2">
+          <h2 class="text-white text-center">
+              Buat linkmu bervariasi <i class="fas fa-level-down"></i>
+          </h2>
+          <div class="card">
+              <div class="card-body">
+                  <form>
+                      <input type="text" id="link" class="form-control mb-2" autocomplete="off" placeholder="ur link " />
+                      <h5 class="text-center">
+                          <i class="fas fa-chevron-circle-down"></i>
+                      </h5>
+                      <input type="text" id="srt" class="form-control mb-2" autocomplete="off" placeholder="ur customize link " />
+                      <small class="form-text text-muted mb-4 url"></small>
+                      <div class="text-center">
+                          <button id="sub" class="btn btn-primary">generate</button>
+                      </div>
+                  </form>
+
+                  <hr />
+                  
+                  {{-- callback response --}}
+                  <div id="respon" hidden  class="alert " role="alert ">
+                  <div class="status"></div>
+                  <div class="open">Open link : <a target="blank" id="trgt"></a></div>
                   </div>
-                  <input type="text" class="form-control py-0" id="targetLink" placeholder="to">
-                </div>
-            </div>
-            <div class="col text-center">
-              <button id="shorter" class="btn btn-primary btn-in">GENERATE</button>
-            </div>
+                  {{-- callback response --}}
+
+                  <div class="md-form input-group mb-3">
+                      <input type="text " class="form-control resLink" />
+                      <div class="input-group-append">
+                          <button class="btn btn-md btn-secondary m-0 px-3 btnLink" type="button ">
+                              copy
+                          </button>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </form>
+      </div>
+  </div>
 
-        <div class="d-none"id="responnya">
-        <hr>
-        {{-- callback --}}
-        <div class="card">
-          <div class="card-body">
-            response : <span class="response">-</span><br>
-            Short link : <span class="shortLink">-</span><br>
-            Target link : <span class="targetLink">-</span>
-          </div>
-        </div>
-        </div>
+  <hr class="bg-white" />
+  <h2 class="text-white"><i class="fas fa-cogs"></i> cara kerja</h2>
+  <h2 class="text-white"><i class="fas fa-code"></i> simpel development</h2>
+</div>
 
-        <hr>
-
-        <div class="card">
-          <table class="table table-strippet">
-            <thead>
-              <tr>
-                <th>no</th>
-                <th>short</th>
-                <th>link</th>
-              </tr>
-            </thead>
-            <tbody id="isinya">
-            </tbody>
-          </table>
-        </div>
-    
-    
-  </div>  
-  
 @endsection
+
 @push('scripts')
-    
 <script>
-  $(document).ready(()=>{
+$(document).ready(()=>{
+  // call function
+  realTime()
+  copy()
 
-            $('#shorter').click(()=>{
-              $('#shorter').html('load..')
-              .removeClass('btn-primary')
-              .addClass('btn-info')
-            })
-            $('.exe').submit((event)=>{
-              event.preventDefault();
-              const vFrom = $('#yourLink').val();
-              const vTo = $('#targetLink').val();
-              const url = 'http://localhost:8000/api/srt';
-              $.post(url, {
-                srt: vTo,
-                link: vFrom
-              }, (data, status)=>{
-                $('.response').html(status)
-                $('.shortLink').html('{{ env('APP_URL') }}:8000/e-' + data.data.srt)
-                $('.targetLink').html(data.data.link)
-                $('#yourLink').val('');
-                $('#targetLink').val('');
-                $('#shorter').html('shorter')
-                .removeClass('btn-info')
-                .addClass('btn-primary');
-                $('#responnya').removeClass('d-none')
-                getData()
-              })
-            })
 
-            function getData(){
-              const url = 'http://localhost:8000/api/srt';
-              $.get(url, (response, status)=>{
-                const all = response.data;
-                let html = '';
-                let no = 0;
-                all.map(dt =>{
-                  html += `<tr><td>${no + 1}</td><td>${dt.srt}</td><td>${dt.link}</td></tr>`
-                  no++
-                })
+  // start
+  function realTime(){    
+    $('#srt').keyup(()=>{
+      const srt = $('#srt').val()
+      $('.url').html(`{{ env('APP_URL') }}:8000/e-${srt}`)
+    })
+  }
 
-                $('#isinya').html(html)
+  function copy(){
+    const copyText = $('.resLink')
+    $('.btnLink').click(()=>{
+      copyText.select();
+      document.execCommand('copy');
+      $('.btnLink').html(`<i class="fas fa-check"></i>`)
+    })
+  }
 
-              })
-            }
-            
-            getData()
+  $('form').submit((event)=>{
+    event.preventDefault()
+    const linknya = $('#link').val();
+    const srtnya = $('#srt').val();
+    $('#sub').html('...').removeClass('btn-primary').addClass('btn-info')
+    const url = 'http://127.0.0.1:8000/api/srt'
+    $.post(url, {
+      link: linknya,
+      srt: srtnya
+    }, (response, status)=>{
+      $('#sub').html('generate').removeClass('btn-info').addClass('btn-primary')
+      console.log(status);
+      if(status == 'success'){
+        $('.status').html(`Status : <b>${status}</b>`)
+        $("#trgt").attr("href", `{{ env('APP_URL') }}:8000/e-${response.data.srt}`).html(`<i class="fas fa-arrow-up-right-from-square"></i> {{ env('APP_URL') }}:8000/e-${response.data.srt}`)
+        $('#respon').removeAttr('hidden').addClass('alert-success')
+        $('.resLink').val(`{{ env('APP_URL') }}:8000/e-${response.data.srt}`)
+      }else{
+        $('#respon').removeAttr('hidden').addClass('alert-danger')
+      }
+      console.log(response.data);
+    })
+  })
 
-        })
-    </script>
+})
+</script>
 @endpush

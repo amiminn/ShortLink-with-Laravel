@@ -18,22 +18,25 @@
             <div class="card">
                 <div class="card-body">
                     <form>
-                        <input type="text " class="form-control mb-2" placeholder="ur link " />
+                        <input type="text" id="srt" class="form-control mb-2" autocomplete="off" placeholder="ur link " />
                         <h5 class="text-center">
                             <i class="fas fa-chevron-circle-down"></i>
                         </h5>
-                        <input type="text " class="form-control mb-2" placeholder="ur customize link " />
+                        <input type="text" id="link" class="form-control mb-2" autocomplete="off" placeholder="ur customize link " />
                         <div class="text-center">
-                            <button class="btn btn-primary">generate</button>
+                            <button id="sub" class="btn btn-primary">generate</button>
                         </div>
                     </form>
 
                     <hr />
-
-                    <div class="alert alert-success" role="alert ">
+                    
+                    {{-- callback response --}}
+                    <div id="respon" hidden class="alert " role="alert ">
                         A simple success alert with
                         <a href="# " class="alert-link">an example link</a>. Give it a click if you like.
                     </div>
+                    {{-- callback response --}}
+
                     <div class="md-form input-group mb-3">
                         <input type="text " value="https://tinyurl.com/app/ " class="form-control" placeholder="Recipient 's username" aria-label="Recipient's username " aria-describedby="MaterialButton-addon2 " />
                         <div class="input-group-append">
@@ -53,3 +56,9 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+
+</script>
+@endpush
